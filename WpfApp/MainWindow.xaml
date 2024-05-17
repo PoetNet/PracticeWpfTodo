@@ -5,10 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="TodoApp" Height="537" Width="884">
+        Title="TodoApp" Height="537" Width="884" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid x:Name="dgTodoList">
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="15">
+            <TextBox x:Name="tbNewTodoText" Width="200" Margin="0,0,10,0" FontSize="16" FontWeight="Bold"/>
+            <Button Content="Add Todo" Click="AddTodo_Click" FontSize="16" FontWeight="Bold" />
+        </StackPanel>
+
+        <DataGrid x:Name="dgTodoList" FontSize="16" FontWeight="Bold" Margin="15" AutoGenerateColumns="False" CanUserAddRows="True" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path = CreationDate}" IsReadOnly="True" Header="CreationDate" Width="180"/>
+                <DataGridCheckBoxColumn Binding="{Binding Path = IsDone, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Header="Done" Width="80"/>
+                <DataGridTextColumn Binding="{Binding Path = Text}" IsReadOnly="False" Header="Todo" Width="*"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>
